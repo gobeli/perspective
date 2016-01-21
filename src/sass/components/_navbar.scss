@@ -1,0 +1,100 @@
+@mixin navbar{
+	width: 100%;
+	padding: 0 $spacing;
+	background-color: lighten($color-primary,25);
+    @include row(false,null,null,space-between);
+    .menu-icon{
+        display: inline-block;
+        line-height: 1;
+        font-size: 1.25rem;
+        padding: .5rem .75rem;
+        margin: $spacing 0;
+        color: $color-primary;
+        border: 1px solid $color-primary;
+        border-radius: $border-radius;
+        @include break(m){
+            display: none;
+        }
+        &:hover,&[aria-expanded="true"]{
+            background-color: $color-primary;
+            color: $color-bg;
+        }
+    }
+	ul{
+		@include row(true,null,center);
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		li{
+			display: inline-block;
+			a{
+				padding: $spacing*1.5;
+				display: block;
+				&:hover,.active{
+					background-color: $color-primary;
+					color: lighten($color-primary,25);
+				}
+			}
+			.search-box{
+				@include form-input-inline;
+				margin: 0 $spacing/2 0 0;
+			}
+		}
+        &.pull-right{
+            @include justify-content(flex-end);
+        }
+	}
+    .nav-collapse{
+        @include row(false,null,null,space-between);
+        @include flex-direction(column);
+        display: none;
+        width: 100%;
+        ul{
+            display: flex;
+            li{
+                text-align: center;
+                display: block;
+                min-width: 100%;
+            }
+        }
+        @include break(m){
+            display: flex !important; //On resize
+            @include flex-direction(row);
+            ul>li{
+                display: inline-block;
+                min-width: 0;
+            }
+        }
+    }
+}
+
+@mixin navbar-inverted{
+	@include navbar;
+	background-color: $color-primary;
+    .menu-icon{        
+        color: $color-bg;
+        border: 1px solid $color-bg;
+        &:hover,&[aria-expanded="true"]{
+            background-color: $color-bg;
+            color: $color-primary;
+        }
+    }
+	ul>li>a{
+		color: $color-bg;
+		&:hover,.active{
+			background-color: darken($color-primary,10);		
+		}
+	}
+}
+
+@mixin the-navbar{
+    .navbar{
+		@include navbar;
+	}
+	.navbar-inverted{
+		@include navbar-inverted;
+	}
+	.navbar.fixed,.navbar-inverted.fixed{
+		position: fixed;
+	}	
+}

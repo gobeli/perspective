@@ -1,0 +1,42 @@
+@mixin tab-navigation{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid darken($color-bg, 10);
+    li{
+        display: inline-block;
+        margin-bottom: -1px;
+        a{
+            display: block;
+            padding: $spacing;
+            border-bottom: 1px solid darken($color-bg, 10);
+            border-top-right-radius: $border-radius;
+            border-top-left-radius: $border-radius;
+            background-color: $color-bg;
+            &[aria-selected="true"]{
+                border: 1px solid darken($color-bg, 10);
+                border-bottom-color: transparent;
+                color: darken($color-primary,5);
+                background-color: #FFF;
+            }
+        }
+    }
+}
+
+@mixin tab{
+    padding: $spacing;
+    border: 1px solid darken($color-bg, 10);
+    border-top: 0;
+    border-bottom-right-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+    background-color: #FFF;
+}
+
+@mixin the-tab{
+    .tab-navigation{
+        @include tab-navigation;
+    }
+    .tab{
+        @include tab;
+    }
+}

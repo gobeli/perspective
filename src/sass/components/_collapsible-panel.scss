@@ -1,0 +1,28 @@
+@mixin collapsible-panel{
+    padding: 1px;
+    border: 1px solid darken($color-bg,5);
+    border-radius: $border-radius;
+    header{
+        a.collapse-link{
+            display: block;
+            padding: $spacing;
+            background-color: darken($color-bg,5);
+            border-radius: $border-radius;
+            &[aria-expanded="true"]{
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+                color: darken($color-primary,5);
+            }
+        }
+    }
+    .content{
+        padding: $spacing;
+        display: none;
+    }
+}
+
+@mixin the-collapsible-panel{
+    .collapsible-panel{
+        @include collapsible-panel;
+    }
+}

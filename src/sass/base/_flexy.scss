@@ -1,0 +1,262 @@
+$Breakpoints:() !global;
+$Prefix: true !global;
+
+
+
+@mixin initialize($breakpoints: (),$prefix: true){
+	$Breakpoints: $breakpoints !global;
+    $Prefix: $prefix !global;
+}
+
+//$inline:          true | false (default: false)
+//$column-gutter:   <empty> | px/em/rem...
+//$align:           <empty> | flex-start | flex-end | center | baseline | stretch 
+//$justify:         <empty> | flex-start | flex-end | center | space-between | space-around 
+@mixin row($inline: false,$column-gutter: null,$align:null,$justify:null){
+	$flex: null;
+	@if $inline{
+		$flex: inline-;
+	}
+    @if $Prefix{
+        display: -webkit-#{$flex}box;
+        display: -moz-#{$flex}box;
+        display: -ms-#{$flex}flexbox;
+        display: -webkit-#{$flex}flex;
+    }
+    display: #{$flex}flex;
+	@include prefix(flex-flow, row wrap);
+    @if $column-gutter{
+    	> *{
+    		padding: 0 $column-gutter;
+    	}
+    }
+    @if $align{
+        @include align-items($align);
+    }       
+    @if $justify{
+        @include justify-content($justify);
+    }       
+}
+
+//$align: flex-start | flex-end | center | baseline | stretch 
+@mixin align-items($value:stretch){
+    $alt-value: $value;    
+    @if $alt-value == flex-start {
+		$alt-value: start;
+	} @else if $alt-value == flex-end {
+		$alt-value: end;
+	} 
+      
+    @include prefix(box-align, $alt-value, (webkit));
+	@include prefix(align-items,$value);
+    @if $Prefix {-ms-flex-align: $alt-value;}
+}
+
+//$justify: flex-start | flex-end | center | space-between | space-around 
+@mixin justify-content($value){
+    $alt-value: $value;
+    @if $value == flex-start {
+		$alt-value: start;
+	} @else if $value == flex-end {
+		$alt-value: end;
+	} @else if $value == space-between {
+		$alt-value: justify;
+	} @else if $value == space-around {
+		$alt-value: distribute;		
+	}
+
+    @include prefix(box-pack, $alt-value, (webkit));
+	@include prefix(justify-content,$value,(webkit,moz));	
+    @if $Prefix {-ms-flex-pack: $alt-value;}
+}
+
+//$direction: row | row-reverse | column | column-reverse
+@mixin flex-direction($value: row){
+    $direction: normal;
+    $orient: horizontal;
+    @if $value == row-reverse {
+        $orient: horizontal;
+        $direction: reverse;
+    } @else if $value == column {
+        $orient: vertical;
+    } @else if $value == column-reverse {
+        $orient: vertical;
+        $direction: reverse;
+    }
+
+    @include prefix(flex-orient,$orient,(webkit),false);
+    @include prefix(box-direction, $direction,(webkit),false);
+	@include prefix(flex-direction,$value);
+}
+
+//$wrap: nowrap | wrap | wrap-reverse
+@mixin flex-wrap($value: nowrap){
+	@include prefix(flex-wrap,$value,(moz,webkit));
+    @if $Prefix{
+        @if $value == nowrap{-ms-flex-wrap: none;}
+        @else {-ms-flex-wrap: $value;}
+    }
+}
+
+//$align: auto | flex-start | flex-end | center | baseline | stretch 
+@mixin align-self($value){
+    @include prefix(align-self,$value);
+    $alt-value: $value;
+    @if $value == flex-start {$alt-value: start;}
+    @else if $value == flex-end {$alt-value: end;}
+    @if $Prefix{ -ms-flex-item-align: $value; }
+}
+
+//$order: Integer
+@mixin order($value: 0){
+	@include prefix(order,$value,(webkit,moz,ms-flex));
+    @if $Prefix{-webkit-box-ordinal-group: $value + 1;}
+}
+
+//$break: one of the specified breaks
+//$width: 1-12
+//$offset: <empty> | 1-12 
+@mixin col($break,$width,$offset:null){
+	@include flex-basis(100%);
+	@if $offset{
+		@include offset($break,$offset);
+	}
+	@include break($break){
+        @include flex-basis(#{100/12 * $width + "%"});
+	}
+}
+
+@mixin flex($value: 0){
+  $box-flex: nth($value, 1);
+  @include prefix(box-flex, $box-flex, webkit moz);
+  @include prefix(flex, $value, webkit moz ms);
+}
+
+@mixin flex-basis($value: auto){
+    @include prefix(flex-basis,$value,(webkit,moz));
+    @if $Prefix {-ms-flex-preferred-size: $value;}
+}
+
+//$break: one of the specified breaks
+//$offset: 1-12
+@mixin offset($break,$offset){
+	margin-left: 0;
+	@include break($break){
+		margin-left: #{100/12 * $offset + "%"};
+	}
+}
+
+@mixin defaultGrid{
+	@if $Breakpoints == () {
+		@error 'Please initialize the breaks with the set-breakpoints mixin';
+	}
+
+	@include row(false,.5rem);
+	&.a-center{
+		@include align-items(center);
+	}
+	&.a-start{
+		@include align-items(flex-start);
+	}
+	&.a-end{
+		@include align-items(flex-end);
+	}
+	&.a-stretch{
+		@include align-items(stretch);
+	}
+	&.a-baseline{
+		@include align-items(baseline);
+	}
+	&.j-center{
+		@include justify-content(center);
+	}
+	&.j-start{
+		@include justify-content(flex-start);
+	}
+	&.j-end{
+		@include justify-content(flex-end);
+	}
+	&.j-between{             
+		@include justify-content(space-between);
+	}
+	&.j-around{
+		@include justify-content(space-around);              
+	}
+	&.direction-column{
+		@include flex-direction(column);
+	}
+	.self-center{
+		@include align-self(center);
+	}
+	.self-start{
+		@include align-self(flex-start);
+	}
+	.self-end{
+		@include align-self(flex-end);
+	}
+	.self-stretch{
+		@include align-self(stretch);
+	}
+	.self-baseline{
+		@include align-self(baseline);
+	}
+
+    [class*='col-'] {
+        @include flex-basis(100%); //default, gets overwritten by the media queries
+		min-height: 1px;   
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+		&.no-gutter{
+			padding: 0;
+		}                     
+	}
+
+    [class*='offset-'] {
+        margin-left: 0; //default, gets overwritten by the media queries
+    }
+
+    @each $name,$break in $Breakpoints{   
+         @include break($name){  
+             @for $i from 1 through 11 { //only go through 11, because 12 is by default 100% and is not changing in the media query
+                $width: #{100/12 * $i + "%"};
+		        .col-#{$name+$i}{
+	                @include flex-basis($width);
+		        }
+		        .offset-#{$name+$i}{
+			        margin-left: $width;
+		        }
+             }
+         }
+	}
+
+     @for $i from 1 through 12 {
+		.order-#{$i}{
+			@include order($i);
+		}		
+	}
+}	
+
+
+//$break: one of the specified breaks
+@mixin break($break){	
+	@if map-has-key($Breakpoints, $break){
+		@media screen and (min-width: #{map-get($Breakpoints,$break)}){
+			@content;
+		}
+	} 
+	@else {
+		@error 'Please specify the break #{$break}';
+	}
+}
+
+@mixin prefix($property, $value, $prefixes: (webkit,moz,ms),$plain: true) {
+	@if $Prefix{
+		@each $prefix in $prefixes {
+			#{'-' + $prefix + '-' + $property}: $value;
+		}
+	}
+
+    @if $plain{
+	    #{$property}: $value;
+    }
+}

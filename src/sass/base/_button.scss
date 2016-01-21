@@ -1,0 +1,64 @@
+$button-sizes: (
+	small: .75rem,
+	medium: 1rem,
+	large: 1.25rem
+);
+
+
+@mixin button-default($button-size:medium){	
+	appearance: none;
+	cursor: pointer;
+	display:inline-block;
+	text-decoration: none;
+	padding: .5rem 1.2rem;
+	font-size: map-get($button-sizes,$button-size);
+	background-color: $color-primary;
+	color: $color-bg;
+	border: 1px solid transparent;
+	margin: $spacing 0 0;
+	border-radius: $border-radius;
+	transition: background-color .25s ease-out;
+	&:hover{
+		background-color: darken($color-primary,10);
+		color: $color-bg;
+	}
+}
+
+@mixin ghost-button($button-size){
+	@include button-default($button-size);
+	background-color: transparent;
+	border-color: $color-primary;
+	color: $color-primary;
+	&:hover{
+		background-color: $color-primary;
+		color: $color-bg;
+		border-color: $color-primary;
+	}
+}
+
+@mixin button-fill(){
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+@mixin the-button{
+	.btn {
+		@include button-default(medium);
+	}
+	.btn-ghost {
+		@include ghost-button(medium);
+	}
+	.btn-fill{
+		@include button-default(medium);
+		@include button-fill;
+	}
+	.btn,.btn-ghost,.btn-fill {
+		&.small {
+			font-size: map-get($button-sizes, small);
+		}
+		&.large { 
+			font-size: map-get($button-sizes, large); 
+		}
+	}
+}
