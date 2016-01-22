@@ -1,0 +1,27 @@
+﻿@mixin modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.2);
+    display: none;
+    .container{
+        flex-direction: column;
+        background: rgba(255,255,255,1);
+        width: 80%;
+        margin: $spacing*4 auto;
+        border-radius: $border-radius;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        @include break(m){
+            width: 60%;
+        }
+    }
+}
+
+@mixin the-modal{
+    .modal{
+        @include modal;
+    }
+}

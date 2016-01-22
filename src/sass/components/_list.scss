@@ -1,0 +1,77 @@
+﻿//Options: ordered,striped,hover
+@mixin list($options: ()){
+    margin: $spacing 0;
+    padding: 0;
+    width: 100%;
+    background-color: #fff;
+    border-radius: $border-radius;
+    border:1px solid darken($color-bg, 10);
+    list-style-type: none;
+    li{
+        border-bottom: 1px solid darken($color-bg, 10);
+        padding: $spacing;
+        &:first-child{
+            border-top: none;
+        }
+        &:last-child{
+            border-bottom: none;
+        }
+    }
+    @if index($options,ordered){
+        @include ordered-list;
+    }
+    @if index($options,striped){
+        @include list-striped;
+    }
+    @if index($options,hover){
+        @include list-hover;
+    }
+}
+
+@mixin ordered-list{
+    counter-reset: list-item;
+    list-style-type: none;
+    li{
+        &:before{
+            line-height: 1;
+            padding: $spacing/2 $spacing;
+            margin-right: $spacing;
+            float: left;
+            border-radius: $border-radius;
+            background-color: $color-primary;
+            color: $color-bg;
+            content: counters(list-item,".") " "; 
+        }
+    }
+}
+
+@mixin list-striped{
+    li:nth-child(odd){
+		background-color: darken($color-bg,5);
+    }
+}
+
+@mixin list-hover{
+    li:hover{
+		background-color: darken($color-bg,5);
+    }
+}
+
+@mixin the-list{
+    .list{
+        @include list;
+        &.striped{
+            @include list-striped;
+        }
+        &.hover{
+            @include list-hover;
+        }
+    }
+    ol.list{
+        @include ordered-list;
+        ol{
+            @extend .list;
+            margin-bottom: 0;
+        }
+    }
+}

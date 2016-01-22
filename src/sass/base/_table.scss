@@ -1,4 +1,4 @@
-@mixin table{
+@mixin table($options: ()){
 	border: 1px solid $color-primary;
 	border-collapse: separate;
 	border-spacing: 0;
@@ -28,21 +28,34 @@
 	th, td { 
 		padding: 5px;
 	}
+    @if index($options,striped){
+        @include table-striped;
+    }
+    @if index($options,hover){
+        @include table-hover;
+    }
 }
 
 @mixin table-striped{
-	@include table;
 	tr:nth-child(odd){
 		background-color: darken($color-bg,5);
 	}
 }
 
+@mixin table-hover{
+   tr:hover{
+		background-color: darken($color-bg,5);
+   }
+}
+
 @mixin the-table{
 	.table{
 		@include table;
-	}
-
-	.table-striped{
-		@include table-striped;
+        &.striped{
+            @include table-striped;
+        }
+        &.hover{
+            @include table-hover;
+        }
 	}
 }

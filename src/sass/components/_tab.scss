@@ -2,7 +2,6 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
-    border-bottom: 1px solid darken($color-bg, 10);
     li{
         display: inline-block;
         margin-bottom: -1px;
@@ -13,6 +12,9 @@
             border-top-right-radius: $border-radius;
             border-top-left-radius: $border-radius;
             background-color: $color-bg;
+            &:hover{
+                background-color: darken($color-bg,5);
+            }
             &[aria-selected="true"]{
                 border: 1px solid darken($color-bg, 10);
                 border-bottom-color: transparent;
@@ -26,9 +28,7 @@
 @mixin tab{
     padding: $spacing;
     border: 1px solid darken($color-bg, 10);
-    border-top: 0;
-    border-bottom-right-radius: $border-radius;
-    border-bottom-left-radius: $border-radius;
+    border-radius: $border-radius;
     background-color: #FFF;
 }
 

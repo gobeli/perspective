@@ -21,9 +21,12 @@ body {
 	line-height: 1.5;
 	color: $color-fg;
 	background: $color-bg;
+    &.modal-open{
+        overflow: hidden;
+    }
 }
 
-.row{
+.container{
 	@include defaultGrid;
 }
 
@@ -48,7 +51,7 @@ hr{
     margin-bottom: $spacing;
 }
 
-.clear{
+.clear{    
 	&::before,
 	&::after {
 		content: ' ';

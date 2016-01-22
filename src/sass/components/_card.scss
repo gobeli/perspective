@@ -9,7 +9,7 @@ $shadows: (
 	background: #fff;
 	border-radius: $border-radius;
 	display: block;
-	padding: 0 $spacing;
+	padding: $spacing;
     @if $shadow{
         box-shadow: map-get($shadows, $shadow)
     }
@@ -29,11 +29,6 @@ $shadows: (
 	}
 }
 
-@mixin collapsible-panel-card($shadow: null){
-    @include card($shadow);
-    @include collapsible-panel;
-    border: none;
-}
 
 @mixin the-card{
     $all-Card: '';

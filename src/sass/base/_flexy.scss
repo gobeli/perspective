@@ -12,7 +12,7 @@ $Prefix: true !global;
 //$column-gutter:   <empty> | px/em/rem...
 //$align:           <empty> | flex-start | flex-end | center | baseline | stretch 
 //$justify:         <empty> | flex-start | flex-end | center | space-between | space-around 
-@mixin row($inline: false,$column-gutter: null,$align:null,$justify:null){
+@mixin container($inline: false,$column-gutter: null,$align:null,$justify:null){
 	$flex: null;
 	@if $inline{
 		$flex: inline-;
@@ -24,6 +24,7 @@ $Prefix: true !global;
         display: -webkit-#{$flex}flex;
     }
     display: #{$flex}flex;
+    width: 100%;
 	@include prefix(flex-flow, row wrap);
     @if $column-gutter{
     	> *{
@@ -151,7 +152,7 @@ $Prefix: true !global;
 		@error 'Please initialize the breaks with the set-breakpoints mixin';
 	}
 
-	@include row(false,.5rem);
+	@include container(false,1rem);
 	&.a-center{
 		@include align-items(center);
 	}
@@ -204,8 +205,8 @@ $Prefix: true !global;
     [class*='col-'] {
         @include flex-basis(100%); //default, gets overwritten by the media queries
 		min-height: 1px;   
-        padding-top: .5rem;
-        padding-bottom: .5rem;
+        padding-top: .75rem;
+        padding-bottom: .75rem;
 		&.no-gutter{
 			padding: 0;
 		}                     

@@ -1,20 +1,22 @@
 (function($) {
-    $.fn.Tab = function() {
-        tabs = new Array();
-        links = $(this).find("a");
-        links.each(function( index ) {
-            tabs.push($(this).attr("href"));
-            $(this).addClass("tab"+index);
+    $.fn.Tab = function () {
+        var tabs = new Array();
+        var $t = $(this);
+        var links = $t.find("a");
+        links.each(function (index) {
+            $t = $(this);
+            tabs.push($t.attr("href"));
+            $t.addClass("tab" + index);
         });
-        links.click(function(e) {
+        links.click(function (e) {
             e.preventDefault();
-            $this = $(this);
-            for (i = 0; i < tabs.length; i++){
+            $t = $(this);
+            for (i = 0; i < tabs.length; i++) {
                 $(tabs[i]).attr("aria-hidden", "true");
             };
-            links.attr("aria-selected", "false");  
-            $this.attr("aria-selected", "true");  
-            $($this.attr("href")).attr("aria-hidden", "false");    
+            links.attr("aria-selected", "false");
+            $t.attr("aria-selected", "true");
+            $($t.attr("href")).attr("aria-hidden", "false");
         });
     };
 })(jQuery);

@@ -21,6 +21,12 @@
     }
 }
 
+@mixin collapsible-panel-card($shadow: null){
+    @include card($shadow);
+    @include collapsible-panel;
+    border: none;
+}
+
 @mixin the-collapsible-panel{
     .collapsible-panel{
         @include collapsible-panel;

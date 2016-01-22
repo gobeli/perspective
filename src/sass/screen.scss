@@ -7,7 +7,8 @@
 @import "components/navbar";
 @import "components/collapsible-panel";
 @import "components/tab";
-
+@import "components/list";
+@import "components/modal";
 
 @include initialize(("xs": "0px","s": "480px","m": "768px","l": "980px"),false);
 
@@ -20,3 +21,9 @@
 @include the-navbar;
 @include the-collapsible-panel;
 @include the-tab;
+@include the-list;
+@include the-modal;
+
+.test{
+    @include list((ordered,hover));
+}
