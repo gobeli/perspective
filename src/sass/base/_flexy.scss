@@ -1,11 +1,33 @@
 $Breakpoints:() !global;
 $Prefix: true !global;
 
-
-
 @mixin initialize($breakpoints: (),$prefix: true){
 	$Breakpoints: $breakpoints !global;
     $Prefix: $prefix !global;
+}
+
+//$break: one of the specified breaks
+@mixin break($break){
+	@if map-has-key($Breakpoints, $break){
+		@media screen and (min-width: #{map-get($Breakpoints,$break)}){
+			@content;
+		}
+	}
+	@else {
+		@error 'Please specify the break #{$break}';
+	}
+}
+
+@mixin prefix($property, $value, $prefixes: (webkit,moz,ms),$plain: true) {
+	@if $Prefix{
+		@each $prefix in $prefixes {
+			#{'-' + $prefix + '-' + $property}: $value;
+		}
+	}
+
+	@if $plain{
+		#{$property}: $value;
+	}
 }
 
 //$inline:          true | false (default: false)
@@ -94,7 +116,7 @@ $Prefix: true !global;
 @mixin flex-wrap($value: nowrap){
 	@include prefix(flex-wrap,$value,(moz,webkit));
     @if $Prefix{
-        @if $value == nowrap{-ms-flex-wrap: none;}
+        @if $value == nowrap{-ms-flex-wrap: nowrap;}
         @else {-ms-flex-wrap: $value;}
     }
 }
@@ -235,29 +257,4 @@ $Prefix: true !global;
 			@include order($i);
 		}		
 	}
-}	
-
-
-//$break: one of the specified breaks
-@mixin break($break){	
-	@if map-has-key($Breakpoints, $break){
-		@media screen and (min-width: #{map-get($Breakpoints,$break)}){
-			@content;
-		}
-	} 
-	@else {
-		@error 'Please specify the break #{$break}';
-	}
-}
-
-@mixin prefix($property, $value, $prefixes: (webkit,moz,ms),$plain: true) {
-	@if $Prefix{
-		@each $prefix in $prefixes {
-			#{'-' + $prefix + '-' + $property}: $value;
-		}
-	}
-
-    @if $plain{
-	    #{$property}: $value;
-    }
 }

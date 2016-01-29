@@ -8,3 +8,9 @@ $("#modal-link").click(function(e) {
     $($(this).attr("href")).fadeIn();
     $("body").addClass("modal-open");
 });
+
+$(".close-modal").click(function(e) {
+    e.preventDefault();
+    $($(this).attr("href")).fadeOut();
+    $("body").removeClass("modal-open");
+});

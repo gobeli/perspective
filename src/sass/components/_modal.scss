@@ -8,14 +8,23 @@
     background: rgba(0,0,0,.2);
     display: none;
     .container{
-        flex-direction: column;
         background: rgba(255,255,255,1);
         width: 80%;
         margin: $spacing*4 auto;
         border-radius: $border-radius;
         box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        padding: 1rem 0;
         @include break(m){
             width: 60%;
+        }
+        header{
+            position: relative;
+            .close-modal{
+                line-height: 1;
+                position: absolute;
+                top: -$spacing;
+                right: $spacing;
+            }
         }
     }
 }
