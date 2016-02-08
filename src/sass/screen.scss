@@ -23,7 +23,3 @@
 @include the-tab;
 @include the-list;
 @include the-modal;
-
-.test{
-    @include list((ordered,hover));
-}

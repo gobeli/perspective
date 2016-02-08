@@ -226,7 +226,8 @@ $Prefix: true !global;
 
     [class*='col-'] {
         @include flex-basis(100%); //default, gets overwritten by the media queries
-		min-height: 1px;   
+		min-height: 1px;
+		min-width:0;
         padding-top: .75rem;
         padding-bottom: .75rem;
 		&.no-gutter{

@@ -33,12 +33,21 @@
 				display: block;
 				&:hover,.active{
 					background-color: $color-primary;
-					color: lighten($color-primary,25);
+					color: lighten($color-bg,10);
 				}
 			}
 			.search-box{
 				@include form-input-inline;
-				margin: 0 $spacing/2 0 0; 
+                width: 150px;
+				margin: $spacing/2;
+                transition: width .2s ease-in-out;
+                &:focus{
+                    width: 200px;
+                    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="490" height="490"><path fill="none" stroke="#AAA" stroke-width="36" stroke-linecap="round" d="m280,278a153,153 0 1,0-2,2l170,170m-91-117 110,110-26,26-110-110"/></svg>');
+                    background-repeat: no-repeat;
+                    background-position: 97% 50%;
+                    background-size: 20px;
+                }                 
 			}
 		}
         &.pull-right{
@@ -83,7 +92,7 @@
 	ul>li>a{
 		color: $color-bg;
 		&:hover,.active{
-			background-color: darken($color-primary,10);		
+			background-color: darken($color-primary,10);	
 		}
 	}
 }

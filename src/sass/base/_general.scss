@@ -9,9 +9,6 @@ html {
 	@include break(m){
 		font-size: 16px;
 	}
-	@include break(l){
-		font-size: 18px;
-	}
 }
 
 body {
@@ -26,6 +23,47 @@ body {
     }
 }
 
+h1,h2,h3,h4,h5,h6{
+    font-size: 3rem;
+    margin: 0 0 .5em 0;
+    font-weight: normal;
+    &.light{
+        color: $dark-gray;
+    }
+    &.underline{
+        &::after{
+            content: '';
+            display: block;
+            width: 2.5em;
+            height: 1px;
+            background-color: $dark-gray;
+        }
+        &.text-center:after{            
+            margin: 0 auto;
+        }
+    }
+}
+
+h2 {
+    font-size: 2.4rem;
+}
+
+h3 {
+    font-size: 1.8rem;
+}
+
+h4 {
+    font-size: 1.3rem;
+}
+
+h5 {
+    font-size: 1rem;
+}
+
+h6 {
+    font-size: 0.75rem;
+}
+
 .container{
 	@include defaultGrid;
 }
@@ -37,6 +75,10 @@ a{
 	&:hover{
 		color: darken($color-primary,5);
 	}
+}
+
+.text-center{
+    text-align: center;
 }
 
 hr{

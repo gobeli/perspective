@@ -1,9 +1,15 @@
+﻿@mixin input-group{
+    .form-input:first-child{
+        margin-top: 0;
+    }
+}
+
 @mixin form-input{
 	display: block;
 	width: 100%;
 	max-width: 100%;
 	padding: .5rem;
-	border: 1px solid $color-fg;
+	border: 2px solid $light-gray;
 	margin: $spacing 0 0;
 	font-family: inherit;
     font-size: 1rem;
@@ -11,7 +17,16 @@
 	&:focus{
 		border-color: $color-primary;
 		outline: none;
-	}
+	}    
+}
+
+@mixin select{
+    appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="66"><polygon points="0,0 100,0 50,66" style="fill: rgb(51, 51, 51)"></polygon></svg>') 99%/50% no-repeat;
+    background-size: 10px 7px;
+    option{
+        background-color: $light-gray;
+    }
 }
 
 @mixin form-input-inline{
@@ -21,10 +36,17 @@
 }
 
 @mixin the-form{
+    .input-group{
+        @include input-group;
+    }
+    
 	.form-input{
 		@include form-input;
 	}
 	.form-input-inline{
 		@include form-input-inline;
 	}
+    select.form-input, select.form-input-inline{
+        @include select;
+    }
 }

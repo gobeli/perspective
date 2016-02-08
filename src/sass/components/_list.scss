@@ -27,24 +27,6 @@
         @include list-hover;
     }
 }
-
-@mixin ordered-list{
-    counter-reset: list-item;
-    list-style-type: none;
-    li{
-        &:before{
-            line-height: 1;
-            padding: $spacing/2 $spacing;
-            margin-right: $spacing;
-            float: left;
-            border-radius: $border-radius;
-            background-color: $color-primary;
-            color: $color-bg;
-            content: counters(list-item,".") " "; 
-        }
-    }
-}
-
 @mixin list-striped{
     li:nth-child(odd){
 		background-color: darken($color-bg,5);
@@ -65,13 +47,6 @@
         }
         &.hover{
             @include list-hover;
-        }
-    }
-    ol.list{
-        @include ordered-list;
-        ol{
-            @extend .list;
-            margin-bottom: 0;
         }
     }
 }
